@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect
+from flask_wtf import form
 
 from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -21,7 +22,6 @@ def main():
 def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
-
 
 
 @app.route("/")
@@ -73,11 +73,16 @@ def login():
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
 
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect("/")
+
+@app.route('/search_dish')
+def search_dish():
+    return render_template('search_dish.html', title='Поиск блюда', form=form)
 
 
 if __name__ == '__main__':
