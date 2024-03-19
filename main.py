@@ -1,11 +1,12 @@
 from flask import Flask, render_template, redirect, abort, request
-
-from forms.news import NewsForm
-from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_wtf import form
+
+from data import db_session
 from data.news import News
 from data.users import User
-from data import db_session
+from forms.news import NewsForm
+from forms.user import RegisterForm, LoginForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -149,6 +150,17 @@ def profile(id):
         c_user = db_sess.query(User).filter(User.id == id
                                             ).first()
         return render_template("profile.html", about=c_user.about)
+
+
+@app.route('/create_dish')
+def create_dish():
+    return render_template('create_dish.html', form=form)
+
+
+@app.route('/submit', methods=['POST'])
+def submit_form():
+    data = request.form['data']
+    print(data)
 
 
 @app.route('/logout')
