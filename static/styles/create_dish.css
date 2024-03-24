@@ -61,12 +61,12 @@ padding: 10px;
 border: 3px solid rgb(43, 129, 17);
 }
 
-#input1{
+#input_product{
     border: 5px solid rgb(43, 129, 17);
     width: 300px;
     border-radius: 5px;
 }
-#input2{
+#input_mass{
     border: 5px solid rgb(43, 129, 17);
     width: 100px;
     border-radius: 5px;

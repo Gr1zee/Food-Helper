@@ -152,15 +152,18 @@ def profile(id):
         return render_template("profile.html", about=c_user.about)
 
 
-@app.route('/create_dish')
+products = []
+
+
+@app.route('/create_dish', methods=["GET", "POST"])
 def create_dish():
-    return render_template('create_dish.html', form=form)
-
-
-@app.route('/submit', methods=['POST'])
-def submit_form():
-    data = request.form['data']
-    print(data)
+    global products
+    if request.method == "POST":
+        products.append((request.form.get('input_product'), request.form.get('input_mass')))
+        print(products)
+        return render_template('list_create_dish.html', products=products, form=form)
+    else:
+        return render_template('create_dish.html', form=form)
 
 
 @app.route('/logout')

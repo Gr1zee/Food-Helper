@@ -1,0 +1,9 @@
+{% extends "create_dish.html" %}
+
+{% block content %}
+    <ul>
+      {% for item in products %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+{% endblock %}

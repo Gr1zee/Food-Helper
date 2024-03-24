@@ -14,15 +14,15 @@
 <script>
   let products = []
   function displayInfo() {
-  var input1 = document.getElementById("input1").value;
-  var input2 = document.getElementById("input2").value;
+  var input1 = document.getElementById("input_product").value;
+  var input2 = document.getElementById("input_mass").value;
   var table = document.getElementById("infoTable");
   var newRow = table.insertRow(table.rows.length);
   var cell1 = newRow.insertCell(0);
   var cell2 = newRow.insertCell(1);
   cell1.innerHTML = input1;
   cell2.innerHTML = input2;
-}
+  }
 </script>
 <body>
   <!-- the header of the page -->
@@ -35,14 +35,14 @@
   <div class ='line'></div>
 
 
-  <main class = "main">
+  <form method="post" id="form_products" class="main">
     <div>
       <div class="input_text">
         <div class="input_text1"><b>Введите продукт:</b></div>
         <div class="input_text2"><b>Масса:</b></div>
       </div>
-      <input type="text" id="input1" placeholder="Продукт">
-      <input type="text" id="input2" placeholder="Масса, г">
+      <input type="text" id="input_product" name="input_product" placeholder="Продукт">
+      <input type="text" id="input_mass" name="input_mass" placeholder="Масса, г">
       <button onclick="displayInfo()" class="btn btn-outline-success">Добавить</button>
       <table id="infoTable" border="1">
       <tr>
@@ -52,11 +52,13 @@
       </table>
       <button class="btn btn-outline-success">Сохранить</button>
     </div>
-  
-  
-  </main>
-    
 
+
+  </form>
+
+<main role="main" class="container">
+    {% block content %}{% endblock %}
+</main>
 
 </body>
 </html>
