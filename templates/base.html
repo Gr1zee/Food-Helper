@@ -10,18 +10,36 @@
     <title>{{title}}</title>
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <header>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
         <a class="navbar-brand" href="/">FoodHelper</a>
         {% if current_user.is_authenticated %}
-    <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavLightDropdown" aria-controls="navbarNavLightDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+         <div class="collapse navbar-collapse" id="navbarNavLightDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <button class="btn btn-light dropdown-toggle-end" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ current_user.name }}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-light">
+            <li><a class="dropdown-item" href="/profile/{{ current_user.id }}">Профиль</a></li>
+            <li><a class="dropdown-item" href="/logout">Выйти</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 {% else %}
     <p>
         <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
         <a class="btn btn-success" href="/login">Войти</a>
     </p>
 {% endif %}
-    </nav>
 </header>
 <!-- Begin page content -->
 <main role="main" class="container">
