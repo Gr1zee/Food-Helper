@@ -36,6 +36,11 @@ def index():
     return render_template("index.html", news=news)
 
 
+@app.route("/search_dish/",)
+def search_dish():
+    return render_template("profile.html")
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
     form = RegisterForm()
