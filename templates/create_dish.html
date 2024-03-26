@@ -50,15 +50,14 @@
         <th>Масса</th>
       </tr>
       </table>
-      <button class="btn btn-outline-success">Сохранить</button>
     </div>
-
-
   </form>
-
-<main role="main" class="container">
+  <main role="main" class="container">
     {% block content %}{% endblock %}
-</main>
+  </main>
+  <form action="/dish_saved" method="post" style="display:flex; justify-content:center; align-items:center; height:100vh;" >
+    <button class="btn btn-outline-success" id="save_btn" name="save_btn">Сохранить</button>
+  </form>
 
 </body>
 </html>
