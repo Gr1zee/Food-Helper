@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, abort, request
 
+from forms.dish import DishForm
 from forms.news import NewsForm
 from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -36,9 +37,14 @@ def index():
     return render_template("index.html", news=news)
 
 
-@app.route("/search_dish/",)
+@app.route("/search_dish/", methods=['GET', 'POST'])
 def search_dish():
-    return render_template("profile.html")
+    form = DishForm()
+    if form.validate_on_submit():
+        d = form.title.data
+        print(d)
+    return render_template('search_dish.html', title='Найти блюдо',
+                           form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])

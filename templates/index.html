@@ -2,9 +2,7 @@
 
 {% block content %}
 <h1>Недавние блюда</h1>
-    {% if current_user.is_authenticated %}
-    <a href="news" class="btn btn-secondary">Добавить блюдо</a>
-    {% endif %}
+    <a href="search_dish" class="btn btn-secondary">Найти блюдо</a>
 {% for item in news%}
 <div class="col-md6 border rounded">
     <h2>{{item.title}}</h2>
