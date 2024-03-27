@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, abort, request
 
-from data.dish_parser import search_dishes
+from data.dish_parser import search_dishes, translate
 from forms.dish import DishForm
 from forms.news import NewsForm
 from forms.user import RegisterForm, LoginForm
@@ -41,11 +41,15 @@ def index():
 @app.route("/search_dish/", methods=['GET', 'POST'])
 def search_dish():
     form = DishForm()
+    res = []
     if form.validate_on_submit():
         request = form.title.data
-        print(search_dishes(request))
+        mass = form.mass.data
+        res = search_dishes(request, mass)
+        return render_template('search_dish.html', title='Найти блюдо',
+                               form=form, dishes=res, name=form.title.data)
     return render_template('search_dish.html', title='Найти блюдо',
-                           form=form)
+                           form=form, dishes=res)
 
 
 @app.route('/register', methods=['GET', 'POST'])

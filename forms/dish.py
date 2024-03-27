@@ -5,5 +5,6 @@ from wtforms.validators import DataRequired
 
 class DishForm(FlaskForm):
     title = StringField('Название', validators=[DataRequired()])
+    mass = StringField('Вес, г', default=100)
     is_private = BooleanField("Сохранить блюдо в профиль")
-    submit = SubmitField('Применить')
+    submit = SubmitField('Найти')
