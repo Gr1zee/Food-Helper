@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, abort, request
 
+from data.dish_parser import search_dishes
 from forms.dish import DishForm
 from forms.news import NewsForm
 from forms.user import RegisterForm, LoginForm
@@ -41,8 +42,8 @@ def index():
 def search_dish():
     form = DishForm()
     if form.validate_on_submit():
-        d = form.title.data
-        print(d)
+        request = form.title.data
+        print(search_dishes(request))
     return render_template('search_dish.html', title='Найти блюдо',
                            form=form)
 
