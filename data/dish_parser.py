@@ -6,14 +6,20 @@ api_url = 'https://api.calorieninjas.com/v1/nutrition?query='
 
 def search_dishes(dish):
     query = translate(dish)
-    response = requests.get(api_url + query, headers={'X-Api-Key': 'ysUI9RJ681c46u5gGghrfA==BMxPohr2HoeiXhaV'})
-    if response.status_code == requests.codes.ok:
-        print(response.text)
+    if query:
+        response = requests.get(api_url + query, headers={'X-Api-Key': 'ysUI9RJ681c46u5gGghrfA==BMxPohr2HoeiXhaV'})
+        if response.status_code == requests.codes.ok and response.json()["items"]:
+            return response.json()
+        else:
+            print("Error")
     else:
-        print("Error:", response.status_code, response.text)
+        return None
 
 
 def translate(word):
     translator = Translator()
     translation = translator.translate(word, dest='en')
-    return translation.text
+    if translation:
+        return translation.text
+    else:
+        return None
