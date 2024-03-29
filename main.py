@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, abort, request
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_wtf import form
+from data.parse_products import search_product
 
 from data import db_session
 from data.news import News
@@ -153,6 +154,7 @@ def profile(id):
 
 
 products = []
+send_products = []
 
 
 @app.route('/create_dish', methods=["GET", "POST"])
@@ -160,28 +162,17 @@ def create_dish():
     global products
     if request.method == "POST":
         products.append((request.form.get('input_product'), request.form.get('input_mass')))
-        print(products)
         return render_template('list_create_dish.html', products=products, form=form)
     else:
         return render_template('create_dish.html', form=form)
 
 @app.route('/dish_saved', methods=['POST'])
 def dish_saved():
-    return f"""<!doctype html>
-<html lang="en"> 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Отбор астронавтов</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
-  <body>
-  <div class="container">
-    <h1 class="text-center">Данные получены</h1>  
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    </div>  
-  </body>
-</html>"""
+    global products
+    calories_products = search_product(products)
+    print(calories_products)
+    products = []
+    return render_template('dish_saved.html', form=form)
 
 
 @app.route('/logout')
