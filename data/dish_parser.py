@@ -12,7 +12,7 @@ def search_dishes(dish, mass):
         if response.status_code == requests.codes.ok and response.json()["items"]:
             return response.json()
         else:
-            print("Error")
+            return None
     else:
         return None
 

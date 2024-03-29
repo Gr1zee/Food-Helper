@@ -46,6 +46,8 @@ def search_dish():
         request = form.title.data
         mass = form.mass.data
         res = search_dishes(request, mass)
+        if not res:
+            res = "Error"
         return render_template('search_dish.html', title='Найти блюдо',
                                form=form, dishes=res, name=form.title.data)
     return render_template('search_dish.html', title='Найти блюдо',
