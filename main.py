@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, abort, request
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_wtf import form
-from data.parse_products import search_product
+from data.parse_products import search_product, dish_hendler
 
 from data import db_session
 from data.news import News
@@ -166,11 +166,12 @@ def create_dish():
     else:
         return render_template('create_dish.html', form=form)
 
+
 @app.route('/dish_saved', methods=['POST'])
 def dish_saved():
     global products
-    calories_products = search_product(products)
-    print(calories_products)
+    list_products = search_product(products)
+    print(dish_hendler(list_products))
     products = []
     return render_template('dish_saved.html', form=form)
 
