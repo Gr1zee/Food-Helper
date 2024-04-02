@@ -20,5 +20,36 @@
     <div class="user"> <h4>{{ current_user.name }}</h4> </div>
   </header>
   <div class ='line'></div>
+
+  <main>
+      {% for item in answer['total'] %}
+        {% if item == 'total_mass' %}
+            <div>Масса всего блюда: {{ answer['total'][item] }}</div>
+        {% elif item == 'total_calories' %}
+            <div>Всего калорий: {{ answer['total'][item] }}</div>
+        {% elif item == 'total_fat' %}
+            <div>Всего жиров: {{ answer['total'][item] }}</div>
+        {% elif item == 'total_protein' %}
+            <div>Всего белка: {{ answer['total'][item] }}</div>
+        {% elif item == 'total_carbohydrates' %}
+            <div>Всего углеводов: {{ answer['total'][item] }}</div>
+        {% endif %}
+      {% endfor %}
+      <h4>На 100 гр. блюда:</h4>
+     {% for item in answer['relatively'] %}
+        {% if item == 'relatively_calories' %}
+            <div>Ккал: {{ answer['relatively'][item] }}</div>
+        {% elif item == 'relatively_fat' %}
+            <div>Жиры: {{ answer['relatively'][item] }}</div>
+        {% elif item == 'relatively_protein' %}
+            <div>Белки: {{ answer['relatively'][item] }}</div>
+        {% elif item == 'relatively_carbohydrates' %}
+            <div>Углеводы: {{ answer['relatively'][item] }}</div>
+        {% endif %}
+      {% endfor %}
+  </main>
+  <form action="/create_dish" method="post" style="display:flex; justify-content:center; align-items:center; height:100vh;">
+    <button class="btn btn-outline-success" id="new_dish" name="new_dish">Новое блюдо</button>
+  </form>
 </body>
 </html>

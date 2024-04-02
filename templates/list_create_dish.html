@@ -3,7 +3,9 @@
 {% block content %}
     <ul>
       {% for item in products %}
-        <li>{{ item }}</li>
+        {% if item != (None, None) %}
+            <li>{{ item }}</li>
+        {% endif %}
       {% endfor %}
     </ul>
 {% endblock %}

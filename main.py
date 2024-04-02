@@ -164,6 +164,7 @@ def create_dish():
         products.append((request.form.get('input_product'), request.form.get('input_mass')))
         return render_template('list_create_dish.html', products=products, form=form)
     else:
+        products = []
         return render_template('create_dish.html', form=form)
 
 
@@ -171,9 +172,9 @@ def create_dish():
 def dish_saved():
     global products
     list_products = search_product(products)
-    print(dish_hendler(list_products))
+    answer = dish_hendler(list_products)
     products = []
-    return render_template('dish_saved.html', form=form)
+    return render_template('dish_saved.html', form=form, answer=answer)
 
 
 @app.route('/logout')
