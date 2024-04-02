@@ -26,15 +26,16 @@
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{ message }}
 </form>
-{% if dishes == "Error" %}
+{% for dish2 in dishes%}
+{% if dish2 == "Error" %}
 <div class="alert alert-danger" role="alert">
     Ваше блюдо не найдено :(
     <h6>Мы работаем над устранением ошибки</h6>
 </div>
 {% endif %}
-{% for dish in dishes["items"]%}
+{% for dish in dish2["items"]%}
 <div class="col-md6 border rounded border-success">
-    <h2>{{ name }}</h2>
+    <h2>{{ name.capitalize() }}</h2>
     <div>
         {{dish["calories"]}} калорий на {{dish["serving_size_g"]}} гр
     </div>
@@ -46,5 +47,6 @@
         Углеводы {{dish["carbohydrates_total_g"]}} гр, клетчатка {{dish["fiber_g"]}} гр, сахар {{dish["sugar_g"]}} гр
     </div>
 </div>
+{% endfor %}
 {% endfor %}
 {% endblock %}
