@@ -21,33 +21,33 @@
   </header>
   <div class ='line'></div>
 
-  <main>
+  <div>
       {% for item in answer['total'] %}
         {% if item == 'total_mass' %}
-            <div>Масса всего блюда: {{ answer['total'][item] }}</div>
+            <h6>Масса всего блюда: {{ answer['total'][item] }}</h6>
         {% elif item == 'total_calories' %}
-            <div>Всего калорий: {{ answer['total'][item] }}</div>
+            <h6>Всего калорий: {{ answer['total'][item] }}</h6>
         {% elif item == 'total_fat' %}
-            <div>Всего жиров: {{ answer['total'][item] }}</div>
+            <h6>Всего жиров: {{ answer['total'][item] }}</h6>
         {% elif item == 'total_protein' %}
-            <div>Всего белка: {{ answer['total'][item] }}</div>
+            <h6>Всего белка: {{ answer['total'][item] }}</h6>
         {% elif item == 'total_carbohydrates' %}
-            <div>Всего углеводов: {{ answer['total'][item] }}</div>
+            <h6>Всего углеводов: {{ answer['total'][item] }}</h6>
         {% endif %}
       {% endfor %}
       <h4>На 100 гр. блюда:</h4>
      {% for item in answer['relatively'] %}
         {% if item == 'relatively_calories' %}
-            <div>Ккал: {{ answer['relatively'][item] }}</div>
+            <h6>Ккал: {{ answer['relatively'][item] }}</h6>
         {% elif item == 'relatively_fat' %}
-            <div>Жиры: {{ answer['relatively'][item] }}</div>
+            <h6>Жиры: {{ answer['relatively'][item] }}</h6>
         {% elif item == 'relatively_protein' %}
-            <div>Белки: {{ answer['relatively'][item] }}</div>
+            <h6>Белки: {{ answer['relatively'][item] }}</h6>
         {% elif item == 'relatively_carbohydrates' %}
-            <div>Углеводы: {{ answer['relatively'][item] }}</div>
+            <h6>Углеводы: {{ answer['relatively'][item] }}</h6>
         {% endif %}
       {% endfor %}
-  </main>
+  </div>
   <form action="/create_dish" method="post" style="display:flex; justify-content:center; align-items:center; height:100vh;">
     <button class="btn btn-outline-success" id="new_dish" name="new_dish">Новое блюдо</button>
   </form>
