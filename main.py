@@ -1,11 +1,13 @@
 from flask import Flask, render_template, redirect, abort, request
-
-from forms.news import NewsForm
-from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_wtf import form
+from data.parse_products import search_product, dish_hendler
+
+from data import db_session
 from data.news import News
 from data.users import User
-from data import db_session
+from forms.news import NewsForm
+from forms.user import RegisterForm, LoginForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -154,6 +156,30 @@ def profile(id):
         c_user = db_sess.query(User).filter(User.id == id
                                             ).first()
         return render_template("profile.html", about=c_user.about)
+
+
+products = []
+send_products = []
+
+
+@app.route('/create_dish', methods=["GET", "POST"])
+def create_dish():
+    global products
+    if request.method == "POST":
+        products.append((request.form.get('input_product'), request.form.get('input_mass')))
+        return render_template('list_create_dish.html', products=products, form=form)
+    else:
+        products = []
+        return render_template('create_dish.html', form=form)
+
+
+@app.route('/dish_saved', methods=['POST'])
+def dish_saved():
+    global products
+    list_products = search_product(products)
+    answer = dish_hendler(list_products)
+    products = []
+    return render_template('dish_saved.html', form=form, answer=answer)
 
 
 @app.route('/logout')

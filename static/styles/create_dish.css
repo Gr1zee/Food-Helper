@@ -1,0 +1,86 @@
+.header{
+    width:100%;
+    color: white;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    background: #f5f6f9e8;
+	box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.line{
+    background: #2db34a;
+      border-radius: 50px;
+      height: 7px;
+      width: 100%;
+}
+.logo-title{
+    color:#2db34a;
+}
+.user{
+    color: #000;
+}
+
+.main{
+    margin: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    align-self: baseline;
+
+}
+.button{
+    text-align: center;
+    background: #151c39;
+    padding: 10px 70px;
+    border-radius: 10px;
+    height : 100px;
+
+}
+#infoTable{
+    width: 500px;
+    border-collapse: collapse;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    border: 1px solid #dddddd;
+    border-top: 7px solid rgb(43, 129, 17);
+    border-radius: 100px;
+}
+td {
+    text-align: left;
+    padding: 10px;
+    border: 3px solid rgb(43, 129, 17);
+}
+th {
+text-align: center;
+padding: 10px;
+border: 3px solid rgb(43, 129, 17);
+}
+
+#input_product{
+    border: 5px solid rgb(43, 129, 17);
+    width: 300px;
+    border-radius: 5px;
+}
+#input_mass{
+    border: 5px solid rgb(43, 129, 17);
+    width: 100px;
+    border-radius: 5px;
+}
+.input_text{
+    display: flex;
+    flex-direction: row;
+    width: 355px;
+    justify-content: space-between;
+}
+#save_btn{
+    margin: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    align-self: baseline;
+}

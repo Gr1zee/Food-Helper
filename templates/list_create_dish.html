@@ -1,0 +1,11 @@
+{% extends "create_dish.html" %}
+
+{% block content %}
+    <ul>
+      {% for item in products %}
+        {% if item != (None, None) %}
+            <li>{{ item }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+{% endblock %}
