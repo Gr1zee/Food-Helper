@@ -1,4 +1,9 @@
 from flask import Flask, render_template, redirect, abort, request
+
+from data.dish_parser import search_dishes, translate
+from forms.dish import DishForm
+from forms.news import NewsForm
+from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_wtf import form
 from data.parse_products import search_product, dish_hendler
@@ -38,9 +43,20 @@ def index():
     return render_template("index.html", news=news)
 
 
-@app.route("/search_dish/",)
+@app.route("/search_dish/", methods=['GET', 'POST'])
 def search_dish():
-    return render_template("profile.html")
+    form = DishForm()
+    res = []
+    if form.validate_on_submit():
+        request = form.title.data
+        mass = form.mass.data
+        res.append(search_dishes(request, mass))
+        if None in res:
+            res.append("Error")
+        return render_template('search_dish.html', title='Найти блюдо',
+                               form=form, dishes=res, name=form.title.data)
+    return render_template('search_dish.html', title='Найти блюдо',
+                           form=form, dishes=res)
 
 
 @app.route('/register', methods=['GET', 'POST'])

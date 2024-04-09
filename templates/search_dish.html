@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title(class="form-control") }}<br>
+        {% for error in form.title.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.mass.label }}<br>
+        {{ form.mass(class="form-control") }}<br>
+        {% for error in form.title.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p>{{ form.is_private() }} {{ form.is_private.label }}</p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{ message }}
+</form>
+{% for dish2 in dishes%}
+{% if dish2 == "Error" %}
+<div class="alert alert-danger" role="alert">
+    Ваше блюдо не найдено :(
+    <h6>Мы работаем над устранением ошибки</h6>
+</div>
+{% endif %}
+{% for dish in dish2["items"]%}
+<div class="col-md6 border rounded border-success">
+    <h2>{{ name.capitalize() }}</h2>
+    <div>
+        {{dish["calories"]}} калорий на {{dish["serving_size_g"]}} гр
+    </div>
+    <div>
+        Белок {{dish["protein_g"]}} гр, натрий {{dish["sodium_mg"]}} мг, калий {{dish["potassium_mg"]}} мг, холестирин
+        {{dish["cholesterol_mg"]}} мг
+    </div>
+    <div>
+        Углеводы {{dish["carbohydrates_total_g"]}} гр, клетчатка {{dish["fiber_g"]}} гр, сахар {{dish["sugar_g"]}} гр
+    </div>
+</div>
+{% endfor %}
+{% endfor %}
+{% endblock %}
