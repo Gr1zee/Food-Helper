@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, abort, request
 
 from data.dish_parser import search_dishes, translate
-from forms.dish import DishForm
+from forms.dish import SearchDishForm
 from forms.news import NewsForm
 from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -9,7 +9,7 @@ from flask_wtf import form
 from data.parse_products import search_product, dish_hendler
 
 from data import db_session
-from data.news import News
+from data.dishes import Dishes
 from data.users import User
 from forms.news import NewsForm
 from forms.user import RegisterForm, LoginForm
@@ -34,25 +34,27 @@ def load_user(user_id):
 @app.route("/")
 def index():
     db_sess = db_session.create_session()
-    news = db_sess.query(News).filter(News.is_private != True)
+    news = db_sess.query(Dishes).filter(Dishes.is_private != True)
     if current_user.is_authenticated:
-        news = db_sess.query(News).filter(
-            (News.user == current_user) | (News.is_private != True))
+        news = db_sess.query(Dishes).filter(
+            (Dishes.user == current_user) | (Dishes.is_private != True))
     else:
-        news = db_sess.query(News).filter(News.is_private != True)
+        news = db_sess.query(Dishes).filter(Dishes.is_private != True)
     return render_template("index.html", news=news)
 
 
 @app.route("/search_dish/", methods=['GET', 'POST'])
 def search_dish():
-    form = DishForm()
+    form = SearchDishForm()
     res = []
     if form.validate_on_submit():
+        redirect()
         request = form.title.data
         mass = form.mass.data
         res.append(search_dishes(request, mass))
         if None in res:
             res.append("Error")
+            
         return render_template('search_dish.html', title='Найти блюдо',
                                form=form, dishes=res, name=form.title.data)
     return render_template('search_dish.html', title='Найти блюдо',
@@ -103,7 +105,7 @@ def add_news():
     form = NewsForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        news = News()
+        news = Dishes()
         news.title = form.title.data
         news.content = form.content.data
         news.is_private = form.is_private.data
@@ -121,8 +123,8 @@ def edit_news(id):
     form = NewsForm()
     if request.method == "GET":
         db_sess = db_session.create_session()
-        news = db_sess.query(News).filter(News.id == id,
-                                          News.user == current_user
+        news = db_sess.query(Dishes).filter(Dishes.id == id,
+                                          Dishes.user == current_user
                                           ).first()
         if news:
             form.title.data = news.title
@@ -132,8 +134,8 @@ def edit_news(id):
             abort(404)
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        news = db_sess.query(News).filter(News.id == id,
-                                          News.user == current_user
+        news = db_sess.query(Dishes).filter(Dishes.id == id,
+                                          Dishes.user == current_user
                                           ).first()
         if news:
             news.title = form.title.data
@@ -153,8 +155,8 @@ def edit_news(id):
 @login_required
 def news_delete(id):
     db_sess = db_session.create_session()
-    news = db_sess.query(News).filter(News.id == id,
-                                      News.user == current_user
+    news = db_sess.query(Dishes).filter(Dishes.id == id,
+                                      Dishes.user == current_user
                                       ).first()
     if news:
         db_sess.delete(news)
