@@ -48,13 +48,11 @@ def search_dish():
     form = SearchDishForm()
     res = []
     if form.validate_on_submit():
-        redirect()
         request = form.title.data
         mass = form.mass.data
         res.append(search_dishes(request, mass))
         if None in res:
             res.append("Error")
-            
         return render_template('search_dish.html', title='Найти блюдо',
                                form=form, dishes=res, name=form.title.data)
     return render_template('search_dish.html', title='Найти блюдо',
