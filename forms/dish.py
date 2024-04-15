@@ -6,6 +6,5 @@ from wtforms.validators import DataRequired
 class SearchDishForm(FlaskForm):
     title = StringField('Название', validators=[DataRequired()])
     mass = StringField('Вес, г', default=100)
-    is_private = BooleanField("Не публиковать блюдо")
+    is_private = BooleanField("Не публиковать блюдо", default=False)
     submit = SubmitField('Найти')
-    to_publish = SubmitField('Опубликовать и сохранить в профиль')

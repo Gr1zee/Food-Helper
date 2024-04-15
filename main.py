@@ -18,6 +18,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+res = []
 
 
 def main():
@@ -46,6 +47,7 @@ def index():
 @app.route("/search_dish/", methods=['GET', 'POST'])
 def search_dish():
     form = SearchDishForm()
+    global res
     res = []
     if form.validate_on_submit():
         request = form.title.data
@@ -57,6 +59,28 @@ def search_dish():
                                form=form, dishes=res, name=form.title.data)
     return render_template('search_dish.html', title='Найти блюдо',
                            form=form, dishes=res)
+
+
+@app.route("/publish_dish/", methods=['GET', 'POST'])
+def publish_dish():
+    global res
+    c_dish = res[0]["items"][0]
+    db_sess = db_session.create_session()
+    dish = Dishes()
+    dish.title = c_dish["name"]
+    dish.calories = c_dish["calories"]
+    dish.size = c_dish["serving_size_g"]
+    dish.protein = c_dish["protein_g"]
+    dish.sodium = c_dish["sodium_mg"]
+    dish.potassium = c_dish["potassium_mg"]
+    dish.cholesterol = c_dish["cholesterol_mg"]
+    dish.carbohydrates_total = c_dish["carbohydrates_total_g"]
+    dish.fiber = c_dish["fiber_g"]
+    dish.sugar = c_dish["sugar_g"]
+    current_user.news.append(dish)
+    db_sess.merge(current_user)
+    db_sess.commit()
+    return redirect('/')
 
 
 @app.route('/register', methods=['GET', 'POST'])
