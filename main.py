@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, abort, request
 
-from data.dish_parser import search_dishes
+from data.dish_parser import search_dishes, translate
 from forms.dish import SearchDishForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_wtf import form
@@ -65,7 +65,7 @@ def publish_dish():
     c_dish = res[0]["items"][0]
     db_sess = db_session.create_session()
     dish = Dishes()
-    dish.title = c_dish["name"]
+    dish.title = translate(c_dish["name"], "ru")
     dish.calories = c_dish["calories"]
     dish.size = c_dish["serving_size_g"]
     dish.protein = c_dish["protein_g"]

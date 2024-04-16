@@ -17,9 +17,12 @@ def search_dishes(dish, mass):
         return None
 
 
-def translate(word):
+def translate(word, lang="en"):
     translator = Translator()
-    translation = translator.translate(word, dest='en')
+    if lang == "ru":
+        translation = translator.translate(word, dest='ru')
+    else:
+        translation = translator.translate(word, dest='en')
     if translation:
         return translation.text
     else:

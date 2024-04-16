@@ -9,9 +9,6 @@
     <div>
         {{ item.calories }}  калорий на  {{ item.size }}
     </div>
-    <div>
-        Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
-    </div>
      <div>
         Белок {{ item.protein }} гр, натрий {{ item.sodium }} мг, калий {{ item.potassium }} мг, холестирин
         {{ item.cholesterol }} мг
@@ -20,6 +17,9 @@
         Углеводы {{ item.carbohydrates }} гр, клетчатка {{item.fiber}} гр, сахар {{item.sugar}} гр
     </div>
     {% if current_user.is_authenticated and current_user == item.user %}
+    <div>
+        Автор - {{item.user.name}}
+    </div>
     <div>
         <a href="/news_delete/{{ item.id }}" class="btn btn-danger">
             Удалить
