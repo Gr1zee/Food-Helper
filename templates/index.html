@@ -4,19 +4,23 @@
 <h1>Недавние блюда</h1>
     <a href="search_dish" class="btn btn-secondary">Найти блюдо</a>
 {% for item in news%}
-<div class="col-md6 border rounded">
-    <h2>{{item.title}}</h2>
+<div class="col-md6 border rounded border-success">
+    <h2>{{item.title.capitalize() }}</h2>
     <div>
-        {{item.content}}
+        {{ item.calories }}  калорий на  {{ item.size }}
     </div>
     <div>
         Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
     </div>
+     <div>
+        Белок {{ item.protein }} гр, натрий {{ item.sodium }} мг, калий {{ item.potassium }} мг, холестирин
+        {{ item.cholesterol }} мг
+    </div>
+    <div>
+        Углеводы {{ item.carbohydrates }} гр, клетчатка {{item.fiber}} гр, сахар {{item.sugar}} гр
+    </div>
     {% if current_user.is_authenticated and current_user == item.user %}
     <div>
-        <a href="/news/{{ item.id }}" class="btn btn-warning">
-            Изменить
-        </a>
         <a href="/news_delete/{{ item.id }}" class="btn btn-danger">
             Удалить
         </a>

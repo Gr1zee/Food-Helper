@@ -1,9 +1,7 @@
 from flask import Flask, render_template, redirect, abort, request
 
-from data.dish_parser import search_dishes, translate
+from data.dish_parser import search_dishes
 from forms.dish import SearchDishForm
-from forms.news import NewsForm
-from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_wtf import form
 from data.parse_products import search_product, dish_hendler
