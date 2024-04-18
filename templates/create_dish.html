@@ -44,17 +44,12 @@
       <input type="text" id="input_product" name="input_product" placeholder="Продукт">
       <input type="text" id="input_mass" name="input_mass" placeholder="Масса, г">
       <button onclick="displayInfo()" class="btn btn-outline-success">Добавить</button>
-      <table id="infoTable" border="1">
-      <tr>
-        <th>Продукт</th>
-        <th>Масса</th>
-      </tr>
-      </table>
+      <a href="/create_dish" class="btn btn-outline-success" id="clear_btn" name="clear_btn" >Очистить</a>
     </div>
   </form>
-  <main role="main" class="container">
+  <div class="container">
     {% block content %}{% endblock %}
-  </main>
+  </div>
   <form action="/dish_saved" method="post" style="display:flex; justify-content:center; align-items:center; height:100vh;" >
     <button class="btn btn-outline-success" id="save_btn" name="save_btn">Сохранить</button>
   </form>
