@@ -84,3 +84,22 @@ border: 3px solid rgb(43, 129, 17);
     justify-content: space-around;
     align-self: baseline;
 }
+
+#clear_btn{
+    background: #151c39;
+}
+
+#new_dish{
+    margin: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    align-self: baseline;
+}
+
+.container {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
+

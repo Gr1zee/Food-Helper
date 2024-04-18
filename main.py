@@ -213,11 +213,14 @@ def create_dish():
 
 @app.route('/dish_saved', methods=['POST'])
 def dish_saved():
-    global products
-    list_products = search_product(products)
-    answer = dish_hendler(list_products)
-    products = []
-    return render_template('dish_saved.html', form=form, answer=answer)
+    try:
+        global products
+        list_products = search_product(products)
+        answer = dish_hendler(list_products)
+        products = []
+        return render_template('dish_saved.html', form=form, answer=answer)
+    except TypeError:
+        return render_template('error_input_product.html', form=form)
 
 
 @app.route('/logout')

@@ -3,8 +3,10 @@
 {% block content %}
     <ul>
       {% for item in products %}
-        {% if item != (None, None) %}
-            <li>{{ item }}</li>
+        {% if item != (None, None) and item != ('', '') and item[1] != '' and item[0] != ''%}
+            <li><b>Продукт:</b> {{ item[0].capitalize() }}</li>
+            <b>Масса:</b> {{  item[1]  }} гр.
+            <h5></h5>
         {% endif %}
       {% endfor %}
     </ul>
