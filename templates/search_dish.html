@@ -45,7 +45,11 @@
     <div>
         Углеводы {{dish["carbohydrates_total_g"]}} гр, клетчатка {{dish["fiber_g"]}} гр, сахар {{dish["sugar_g"]}} гр
     </div>
+    {% if current_user.is_authenticated %}
     <a href="/publish_dish" class="btn btn-secondary">Сохранить и опубликовать</a>
+    {% else %}
+    <p class="text-danger fw-bold">Авторизуйтесь, чтобы сохранить</p>
+    {% endif %}
 </div>
 {% endfor %}
 {% endfor %}
