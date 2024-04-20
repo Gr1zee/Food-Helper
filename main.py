@@ -12,16 +12,16 @@ from data.users import User
 from forms.news import NewsForm
 from forms.user import RegisterForm, LoginForm
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+application = Flask(__name__)
+application.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
-login_manager.init_app(app)
+login_manager.init_app(application)
 res = []
 
 
 def main():
     db_session.global_init("db/blogs.db")
-    app.run()
+    application.run()
 
 
 @login_manager.user_loader
@@ -30,7 +30,7 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
-@app.route("/")
+@application.route("/")
 def index():
     db_sess = db_session.create_session()
     news = db_sess.query(Dishes).filter(Dishes.is_private != True)
@@ -42,7 +42,7 @@ def index():
     return render_template("index.html", news=news)
 
 
-@app.route("/search_dish/", methods=['GET', 'POST'])
+@application.route("/search_dish/", methods=['GET', 'POST'])
 def search_dish():
     form = SearchDishForm()
     global res
@@ -59,7 +59,7 @@ def search_dish():
                            form=form, dishes=res)
 
 
-@app.route("/publish_dish/", methods=['GET', 'POST'])
+@application.route("/publish_dish/", methods=['GET', 'POST'])
 def publish_dish():
     global res
     c_dish = res[0]["items"][0]
@@ -81,7 +81,7 @@ def publish_dish():
     return redirect('/')
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@application.route('/register', methods=['GET', 'POST'])
 def reqister():
     form = RegisterForm()
     if form.validate_on_submit():
@@ -104,7 +104,7 @@ def reqister():
     return render_template('register.html', title='Регистрация', form=form)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@application.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -119,7 +119,7 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
-@app.route('/news', methods=['GET', 'POST'])
+@application.route('/news', methods=['GET', 'POST'])
 @login_required
 def add_news():
     form = NewsForm()
@@ -137,7 +137,7 @@ def add_news():
                            form=form)
 
 
-@app.route('/news/<int:id>', methods=['GET', 'POST'])
+@application.route('/news/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_news(id):
     form = NewsForm()
@@ -171,7 +171,7 @@ def edit_news(id):
                            )
 
 
-@app.route('/news_delete/<int:id>', methods=['GET', 'POST'])
+@application.route('/news_delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def news_delete(id):
     db_sess = db_session.create_session()
@@ -186,7 +186,7 @@ def news_delete(id):
     return redirect('/')
 
 
-@app.route('/profile/<int:id>', methods=['GET', 'POST'])
+@application.route('/profile/<int:id>', methods=['GET', 'POST'])
 @login_required
 def profile(id):
     db_sess = db_session.create_session()
@@ -200,7 +200,7 @@ products = []
 send_products = []
 
 
-@app.route('/create_dish', methods=["GET", "POST"])
+@application.route('/create_dish', methods=["GET", "POST"])
 def create_dish():
     global products
     if request.method == "POST":
@@ -211,7 +211,7 @@ def create_dish():
         return render_template('create_dish.html', form=form)
 
 
-@app.route('/dish_saved', methods=['POST'])
+@application.route('/dish_saved', methods=['POST'])
 def dish_saved():
     try:
         global products
@@ -223,7 +223,7 @@ def dish_saved():
         return render_template('error_input_product.html', form=form)
 
 
-@app.route('/logout')
+@application.route('/logout')
 @login_required
 def logout():
     logout_user()

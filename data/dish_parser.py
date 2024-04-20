@@ -6,7 +6,6 @@ api_url = 'https://api.calorieninjas.com/v1/nutrition?query='
 
 def search_dishes(dish, mass):
     query = str(mass) + "g" + " " + translate(dish)
-    print(query)
     if query:
         response = requests.get(api_url + query, headers={'X-Api-Key': 'ysUI9RJ681c46u5gGghrfA==BMxPohr2HoeiXhaV'})
         if response.status_code == requests.codes.ok and response.json()["items"]:
