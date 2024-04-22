@@ -11,22 +11,9 @@
     <!-- <link rel="stylesheet" href="flex.css"> -->
 </head>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script>
-  let products = []
-  function displayInfo() {
-  var input1 = document.getElementById("input_product").value;
-  var input2 = document.getElementById("input_mass").value;
-  var table = document.getElementById("infoTable");
-  var newRow = table.insertRow(table.rows.length);
-  var cell1 = newRow.insertCell(0);
-  var cell2 = newRow.insertCell(1);
-  cell1.innerHTML = input1;
-  cell2.innerHTML = input2;
-  }
-</script>
+
 <body>
-  <!-- the header of the page -->
-  <header class="header">
+  <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
         <nav class="navbar navbar-light bg-light">
@@ -44,7 +31,7 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-light">
             <li><a class="dropdown-item" href="/profile/{{ current_user.id }}">Профиль</a></li>
-            <li><a class="dropdown-item" href="/logout">Собрать блюдо</a></li>
+            <li><a class="dropdown-item" href="/create_dish">Собрать блюдо</a></li>
             <li><a class="dropdown-item" href="/search_dish/">Найти блюдо</a></li>
             <li><a class="dropdown-item" href="/logout">Выйти</a></li>
           </ul>
@@ -60,10 +47,7 @@
         <a class="btn btn-success" href="/login">Войти</a>
     </p>
 {% endif %}
-  </header>
-  <div class ='line'></div>
-
-
+</header>
   <form method="post" id="form_products" class="main">
     <div>
       <div class="input_text">
