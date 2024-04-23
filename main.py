@@ -33,12 +33,12 @@ def load_user(user_id):
 @application.route("/")
 def index():
     db_sess = db_session.create_session()
-    news = db_sess.query(Dishes).filter(Dishes.is_private != True)
+    news = db_sess.query(Dishes).order_by(-Dishes.id).filter(Dishes.is_private != True)
     if current_user.is_authenticated:
-        news = db_sess.query(Dishes).filter(
+        news = db_sess.query(Dishes).order_by(-Dishes.id).filter(
             (Dishes.user == current_user) | (Dishes.is_private != True))
     else:
-        news = db_sess.query(Dishes).filter(Dishes.is_private != True)
+        news = db_sess.query(Dishes).order_by(-Dishes.id).filter(Dishes.is_private != True)
     return render_template("index.html", news=news)
 
 
